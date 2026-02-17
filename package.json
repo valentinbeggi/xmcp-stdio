@@ -8,10 +8,10 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.27.0",
-    "express": "^5.1.0"
+    "zod": "^3.25.67"
   },
   "devDependencies": {
-    "@types/express": "^5.0.0",
-    "typescript": "^5.8.0"
+    "@types/node": "^22.19.5",
+    "typescript": "~5.9.3"
   }
 }
