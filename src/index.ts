@@ -9,17 +9,20 @@ const server = new McpServer({
 
 const PORT = 3000;
 
+let currentRequestUrl: string | undefined;
+
 server.registerTool(
   "echo-vendor",
   {
     description: "Returns the vendor from query params",
   },
-  (extra) => {
-    const requestInfo = extra.requestInfo as Record<string, unknown> | undefined;
-    const url = requestInfo?.url;
-    const vendor = url ? new URL(String(url)).searchParams.get("vendor") : null;
+  () => {
+    const params = currentRequestUrl
+      ? new URL(currentRequestUrl, "http://localhost").searchParams
+      : undefined;
+    const vendor = params?.get("vendor") ?? null;
     return {
-      content: [{ type: "text", text: JSON.stringify({ vendor, url: url ? String(url) : null }) }],
+      content: [{ type: "text", text: JSON.stringify({ vendor, rawUrl: currentRequestUrl ?? null }) }],
     };
   },
 );
@@ -29,6 +32,7 @@ const transport = new StreamableHTTPServerTransport({
 });
 
 const httpServer = createServer((request, response) => {
+  currentRequestUrl = request.url;
   transport.handleRequest(request, response);
 });
 
