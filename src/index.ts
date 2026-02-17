@@ -23,16 +23,14 @@ server.registerTool(
   },
 );
 
-const transport = new StreamableHTTPServerTransport({
-  sessionIdGenerator: undefined,
-});
-
-const httpServer = createServer((request, response) => {
-  transport.handleRequest(request, response);
-});
-
-server.connect(transport).then(() => {
-  httpServer.listen(PORT, () => {
-    console.log(`MCP server listening on port ${PORT}`);
+const httpServer = createServer(async (request, response) => {
+  const transport = new StreamableHTTPServerTransport({
+    sessionIdGenerator: undefined,
   });
+  await server.connect(transport);
+  await transport.handleRequest(request, response);
+});
+
+httpServer.listen(PORT, () => {
+  console.log(`MCP server listening on port ${PORT}`);
 });
