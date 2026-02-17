@@ -1,24 +1,17 @@
 {
-  "name": "xmcp-stdio",
-  "version": "0.1.0",
-  "description": "An xmcp application with tool syntax",
-  "engines": {
-    "node": ">=20.0.0"
-  },
+  "name": "query-param-test",
+  "version": "1.0.0",
+  "type": "module",
   "scripts": {
-    "build": "xmcp build",
-    "dev": "xmcp dev",
-    "start": "node dist/stdio.js"
+    "build": "tsc",
+    "start": "node dist/index.js"
   },
   "dependencies": {
-    "xmcp": "0.6.0",
-    "zod": "^4.0.0"
+    "@modelcontextprotocol/sdk": "1.27.0",
+    "express": "^5.1.0"
   },
-  "main": "./dist/stdio.js",
-  "files": [
-    "dist"
-  ],
-  "bin": {
-    "xmcp-stdio": "./dist/stdio.js"
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "typescript": "^5.8.0"
   }
 }
